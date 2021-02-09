@@ -7,7 +7,6 @@
 # as PNG files. 
 ##############################
 
-
 # Read data with readr, which is much faster than R's built-in read functions
 library(readr)
 library(sqldf)
@@ -20,9 +19,15 @@ library(chron)
 setwd("C:/Users/orhol/Desktop/Candace_School/MOOCS/Johns Hopkins Data Science/4. Exploratory Data Analysis/Week 1/ExData_Plotting1")
 allData <- read.csv.sql("data/household_power_consumption.txt", "select * from file where Date = '1/2/2007' or Date = '2/2/2007' ",  sep=";")
 
+allData$datetime <- with(allData, as.POSIXct(paste(as.Date(Date, format="%d/%m/%Y"), Time)))
 
-print(head(allData))
+# print(str(allData))
+# print(allData$datetime)
+
 allData$Date <- as.Date(allData$Date, format='%d/%m/%Y')
-allData$Time <- chron(times=allData$Time)
+allData$Time <- strptime(allData$Time, format = "%I:%M:%S") # Use %I for 12 hr time
+
 
 return(allData) 
+# dev.off()
+
