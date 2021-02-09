@@ -1,9 +1,12 @@
 source("Week1CHV.R")
+source("plot1.R")
+source("plot2.R")
 library(graphics)
 
 
 png("plot3.png", width = 480, height = 480)
-plot1 <- with(allData, plot(allData$datetime, allData$Sub_metering_1, 
+par(mfrow=c(2,2))
+plot3 <- with(allData, plot(allData$datetime, allData$Sub_metering_1, 
                             type="l",
                             col="black",
                             xlab = "",
